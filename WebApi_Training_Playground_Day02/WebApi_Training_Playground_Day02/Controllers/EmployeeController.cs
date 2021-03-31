@@ -20,5 +20,11 @@ namespace WebApi_Training_Playground_Day02.Controllers
 		{
 			return this._employeeRepository.GetEmployees();
 		}
+
+		// GET: Employee
+		public Employee Get(int id)
+		{
+			return this._employeeRepository.GetEmployee(id);
+		}
 	}
 }
