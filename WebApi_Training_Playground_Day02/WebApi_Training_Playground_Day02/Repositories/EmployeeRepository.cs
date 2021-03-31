@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebApi_Training_Playground_Day02.Models;
 
 namespace WebApi_Training_Playground_Day02.Repositories
@@ -24,22 +20,43 @@ namespace WebApi_Training_Playground_Day02.Repositories
 
 		public Employee GetEmployee(int employeeId)
 		{
-			throw new NotImplementedException();
+			return this._context.Employees.FirstOrDefault(e => e.Id == employeeId);
 		}
 
 		public Employee AddEmployee(Employee employee)
 		{
-			throw new NotImplementedException();
+			var result = this._context.Employees.Add(employee);
+			_context.SaveChanges();
+			return result;
 		}
 
 		public Employee UpdateEmployee(Employee employee)
 		{
-			throw new NotImplementedException();
+			var result = _context.Employees.FirstOrDefault(e => e.Id == employee.Id);
+
+			if (result != null)
+			{
+				result.FirstName = employee.FirstName;
+				result.LastName = employee.LastName;
+				result.HireDate = employee.HireDate;
+				result.DepartmentId = employee.DepartmentId;
+
+				_context.SaveChanges();
+
+				return result;
+			}
+
+			return null;
 		}
 
 		public void DeleteEmployee(int employeeId)
 		{
-			throw new NotImplementedException();
+			var result = _context.Employees.FirstOrDefault(e => e.Id == employeeId);
+			if (result != null)
+			{
+				_context.Employees.Remove(result);
+				_context.SaveChanges();
+			}
 		}
 	}
 }
